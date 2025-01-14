@@ -1,0 +1,61 @@
+HTML_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        body {{
+            margin: 0;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+        }}
+        .day {{
+            background-color: #f9f9f9;
+            color: #333;
+        }}
+        .night {{
+            background-color: #2b2b2b;
+            color: #f5f5f5;
+        }}
+        .toggle-button {{
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }}
+    </style>
+    <script>
+        function toggleTheme() {{
+            const body = document.body;
+            const theme = body.classList.contains('day') ? 'night' : 'day';
+            body.className = theme;
+
+            const content = theme === 'day'
+                ? `<h1>Welcome to My Portfolio</h1>
+                   <p>I am Abhi, a Database Administrator with 10 years of experience.</p>
+                   <p>Based in Brussels, Belgium.</p>`
+                : `<h1>Welcome to My Portfolio</h1>
+                   <p>At night, I enjoy playing badminton, tennis, and Dota2.</p>
+                   <p>Also, I love listening to music while traveling or working.</p>`;
+            document.getElementById('content').innerHTML = content;
+        }}
+    </script>
+</head>
+<body class="day">
+    <button class="toggle-button" onclick="toggleTheme()">Toggle Day/Night</button>
+    <div id="content">
+        <h1>Welcome to My Portfolio</h1>
+        <p>I am Abhi, a Database Administrator with 10 years of experience.</p>
+        <p>Based in Brussels, Belgium.</p>
+    </div>
+</body>
+</html>
+"""
