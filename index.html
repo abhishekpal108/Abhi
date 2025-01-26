@@ -14,5 +14,21 @@
         <p>I am Abhi, a Database Administrator with 10 years of experience.</p>
         <p>Based in Brussels, Belgium.</p>
     </div>
+	
+	<script>
+        function displayTime() {
+            const now = new Date();
+            const options = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }; 
+            const formattedTime = now.toLocaleString('en-US', options);
+            document.getElementById('clock').textContent = formattedTime;
+        }
+
+        // Update time every second
+        setInterval(displayTime, 1000); 
+
+        // Initial display
+        displayTime(); 
+    </script>
+	
 </body>
 </html>
