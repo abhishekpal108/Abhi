@@ -7,19 +7,21 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
-<body class="day">
+<body> 
     <button class="toggle-button" onclick="toggleTheme()">Toggle Day/Night</button>
     <div id="content">
         <h1>Welcome to My Portfolio</h1>
         <p>I am Abhi, a Database Administrator with 10 years of experience.</p>
         <p>Based in Brussels, Belgium.</p>
-		
-		<h2>Current Time</h2>
+
+        <h2>Current Time</h2>
         <div id="clock"></div> 
-		
+
+        <h2>Current Date</h2>
+        <div id="date"></div> 
     </div>
-	
-	<script>
+
+    <script>
         function displayTime() {
             const now = new Date();
             const options = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }; 
@@ -27,12 +29,52 @@
             document.getElementById('clock').textContent = formattedTime;
         }
 
-        // Update time every second
-        setInterval(displayTime, 1000); 
+        function displayDate() {
+            const today = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; 
+            const formattedDate = today.toLocaleDateString('en-US', options); 
+            document.getElementById('date').textContent = formattedDate;
+        }
+
+        // Function to determine day/night mode
+        function checkDayNight() {
+            // **Replace with your actual latitude and longitude**
+            const latitude = 50.8503; 
+            const longitude = 4.3517; 
+
+            // Get current date
+            const today = new Date();
+
+            // Calculate sunrise and sunset times 
+            // (This requires an external library like SunCalc.js)
+            // Example using SunCalc.js (you'll need to include the library)
+            const sunTimes = SunCalc.getTimes(today, latitude, longitude); 
+            const sunrise = sunTimes.sunrise;
+            const sunset = sunTimes.sunset;
+
+            // Check if it's currently daytime
+            const now = new Date();
+            const isDaytime = now > sunrise && now < sunset;
+
+            // Set body class accordingly
+            document.body.classList.remove("day", "night"); 
+            document.body.classList.add(isDaytime ? "day" : "night");
+        }
 
         // Initial display
         displayTime(); 
+        displayDate(); 
+        checkDayNight(); 
+
+        // Update time every second
+        setInterval(displayTime, 1000); 
+
+        // Update date every 24 hours
+        setInterval(displayDate, 24 * 60 * 60 * 1000); 
+
+        // Check for day/night mode changes every hour
+        setInterval(checkDayNight, 60 * 60 * 1000); 
     </script>
-	
+
 </body>
 </html>
